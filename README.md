@@ -1,2 +1,2 @@
 # homeassistant
-Home Assistant stuff
+Scripts and configs for Home Assistant and Duckdns
