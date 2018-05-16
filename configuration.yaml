@@ -4,8 +4,8 @@ homeassistant:
   temperature_unit: F
   #time_zone: America/New_York
   # Location required to calculate the time the sun rises and sets
-  latitude: 39.081127
-  longitude: -77.157670
+  latitude: !secret latitude
+  longitude: !secret longitude
   # Impacts weather/sunrise data (altitude above sea level in meters)
   elevation: 131
   # metric for Metric, imperial for Imperial
@@ -86,4 +86,5 @@ zwave:
 group: !include groups.yaml
 automation: !include automations.yaml
 script: !include scripts.yaml
+input_boolean: !include input_boolean.yaml
 
