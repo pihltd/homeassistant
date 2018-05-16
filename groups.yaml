@@ -1,0 +1,56 @@
+#  Switches
+# switch - Front door
+# switch_2 - Sliding door
+# switch_3 - Laundry room
+# switch_4 - Laundry door
+# switch_5 - Garage back door
+# switch_6 - Driveway
+# switch_7 - Den
+# switch_8 - Powder room
+# switch_9 - Short kitchen undercounter
+# switch_10 - Long kitchen undercounter
+
+backyard:
+  name: Backyard Lights
+  view: no
+  entities:
+    - switch.switch_2
+    - switch.switch_4
+    - switch.switch_5
+welcome_garage:
+  name: Welcome Garage
+  view: no
+  entities:
+    - switch.switch_3
+    - switch.switch_6
+    - switch.switch_9
+welcome_front:
+  name: Welcome Front Door
+  view: no
+  entities:
+    - switch.switch
+    - switch.switch_8
+    - switch.switch_7
+    - switch.switch_6
+    - switch.switch_9
+frontyard:
+  name: Frontyard Lights
+  view: no
+  entities:
+    - switch.switch
+    - switch.switch_6
+kitchen:
+  name: Kitchen
+  view: no
+  entities:
+    - switch.switch_9
+    - switch.switch_10
+all_outdoor:
+  name: All Outdoor Lights
+  view: no
+  entities:
+    - switch.switch
+    - switch.switch_2
+    - switch.switch_4
+    - switch.switch_5
+    - switch.switch_6
