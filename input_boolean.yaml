@@ -1,0 +1,6 @@
+# Boolean switches
+
+vacation_mode:
+  name: Vacation
+  icon: mdi:airport
+  initial: off

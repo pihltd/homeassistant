@@ -10,6 +10,19 @@
 # switch_9 - Short kitchen undercounter
 # switch_10 - Long kitchen undercounter
 
+default_view:
+  view: yes
+  entities:
+    - sun.sun
+    - sensor.YR
+    - group.backyard
+    - group.welcome_garage
+    - group.welcome_front
+    - group.frontyard
+    - group.kitchen
+    - group.all_outdoor
+    - group.vacation
+
 backyard:
   name: Backyard Lights
   view: no
@@ -54,3 +67,7 @@ all_outdoor:
     - switch.switch_4
     - switch.switch_5
     - switch.switch_6
+vacation:
+  name: Vacation
+  entities:
+    - input_boolean.vacation_mode

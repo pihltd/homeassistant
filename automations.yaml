@@ -1,0 +1,25 @@
+# switch - Front doo
+# switch_2 - Sliding door
+# switch_3 - laundry room
+# switch_4 - laundry door
+# switch_5 - garage back door
+# switch_6 - driveway
+# switch_7 - Den
+# switch_8 - powder room
+# switch_9 - short undercounter
+# switch_10 - long undercounter
+
+- alias: Vacation
+  initial_state: 'on'
+  trigger: 
+    platform: state
+    entity_id: input_boolean.vacation_mode
+    from: 'off'
+    to: 'on'
+  action:
+    - delay: '0{{ range(0,1) | random | int }}:{{ range(20,59) | random | int }}:00'
+    - service: switch.turn_on
+      entity_id: switch.switch_8
+    - delay: '0{{ range(0,2) | random | int }}:{{ range(10,59) | random | int }}:00'
+    - service: switch.turn_off
+      entity_id: switch.switch_8 
