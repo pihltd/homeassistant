@@ -9,17 +9,65 @@
 # switch_9 - short undercounter
 # switch_10 - long undercounter
 
-- alias: Vacation
+#- alias: Vacation_Powder_Room
+#  initial_state: 'on'
+#  trigger: 
+#    platform: state
+#    entity_id: input_boolean.vacation_mode
+#    from: 'off'
+#    to: 'on'
+#  action:
+#    # Time format HH:MM:SS
+#    #- delay: '0{{ range(0,1) | random | int }}:{{ range(20,59) | random | int }}:00'
+#    - delay: '00:{{ range(0,1) | random | int }}:00'
+#    - service: switch.turn_on
+#      entity_id: switch.switch_8
+#    #- delay: '0{{ range(0,2) | random | int }}:{{ range(10,59) | random | int }}:00'
+#    - delay: '00:{{ range(1,5) | random | int }}:00'
+#    - service: switch.turn_off
+#      entity_id: switch.switch_8 
+
+- alias: BackYardVacation
   initial_state: 'on'
-  trigger: 
+  trigger:
     platform: state
     entity_id: input_boolean.vacation_mode
-    from: 'off'
     to: 'on'
+  condition:
+    - condition: time
+      after: '21:00:00'
   action:
-    - delay: '0{{ range(0,1) | random | int }}:{{ range(20,59) | random | int }}:00'
+    - delay: '00:{{ range(0,10) | random | int }}:00'
     - service: switch.turn_on
-      entity_id: switch.switch_8
-    - delay: '0{{ range(0,2) | random | int }}:{{ range(10,59) | random | int }}:00'
+      entity_id: switch.switch_2
+    - delay: '00:{{ range(15,30) | random | int }}:00'
     - service: switch.turn_off
-      entity_id: switch.switch_8 
+      entity_id: switch.switch_2
+
+#Sun-timed events
+- alias: Vacation_Sunset
+  initial_state: 'on'
+  trigger:
+    platform: state
+    entity_id: input_boolean.vacation_mode
+    to: 'on'
+  condition:
+    - condition: sun
+      after: sunset
+  action:
+    - service: switch.turn_on
+      entity_id: switch.switch
+
+- alias: Vacation_Sunrise
+  initial_state: 'on'
+  trigger:
+    platform: state
+    entity_id: input_boolean.vacation_mode
+    to: 'on'
+  condition:
+    - condition: sun
+      after: sunrise
+  action:
+    - service: switch.turn_off
+      entity_id: switch.switch
+

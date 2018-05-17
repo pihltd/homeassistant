@@ -14,18 +14,61 @@ default_view:
   view: yes
   entities:
     - sun.sun
-    - sensor.YR
-    - group.backyard
-    - group.welcome_garage
-    - group.welcome_front
-    - group.frontyard
-    - group.kitchen
-    - group.all_outdoor
+    - sensor.yr
+    - group.backyard_group
+    - group.welcome_garage_group
+    - group.welcome_front_group
+    - group.frontyard_group
+    - group.kitchen_group
+    - group.all_outdoor_group
     - group.vacation
 
-backyard:
+############################################
+# Groups of groups to make single switches #
+############################################
+
+backyard_group:
   name: Backyard Lights
-  view: no
+  entities:
+    - group.backyard
+welcome_garage_group:
+  name: Welcome Garage
+  entities:
+    - group.welcome_garage
+welcome_front_group:
+  name: Welcome Front Door
+  entities:
+    - group.welcome_front
+frontyard_group:
+  name: Frontyard Lights
+  entities:
+    - group.frontyard
+kitchen_group:
+  name: Kitchen
+  entities:
+    - group.kitchen
+all_outdoor_group:
+  name: All Outdoor Lights
+  entities:
+    - group.all_outdoor
+#####################################
+#    Groups of lights               #
+#####################################
+all_lights:
+  name: All Lights
+  view: yes
+  entities:
+    - switch.switch
+    - switch.switch_2
+    - switch.switch_3
+    - switch.switch_4
+    - switch.switch_5
+    - switch.switch_6
+    - switch.switch_7
+    - switch.switch_8
+    - switch.switch_9
+    - switch.switch_10
+backyard:
   entities:
     - switch.switch_2
     - switch.switch_4
