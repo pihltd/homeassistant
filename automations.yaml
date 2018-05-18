@@ -43,7 +43,74 @@
     - delay: '00:{{ range(15,30) | random | int }}:00'
     - service: switch.turn_off
       entity_id: switch.switch_2
-
+    
+- alias: KitchenMorningVacation
+  initial_state: 'on'
+  trigger:
+    platform: time
+    at: '06:00:00'
+  condition:
+    - condition: state
+      entity_id: input_boolean.vacation_mode
+      state: 'on'
+  action:
+    - delay: '00:{{ range(0,5) | random | int }}:00'
+    - service: switch.turn_on
+      entity_id: group.kitchen
+    - delay: '01:{{ range(30,45) | random | int }}:00'
+    - service: switch.turn_off
+      entity_id: group.kitchen
+      
+- alias: KitchenEveningVacation
+  initial_state: 'on'
+  trigger:
+    platform: time
+    at: '18:30:00'
+  condition:
+    - condition: state
+      entity_id: input_boolean.vacation_mode
+      state: 'on'
+  action:
+    - delay: '00:{{ range(0,5) | random | int }}:00'
+    - service: switch.turn_on
+      entity_id: group.kitchen
+    - delay: '01:{{ range(30,45) | random | int }}:00'
+    - service: switch.turn_off
+      entity_id: group.kitchen
+        
+- alias: DenEveningVacation
+  initial_state: 'on'
+  trigger:
+    platform: time
+    at: '17:30:00'
+  condition:
+    - condition: state
+      entity_id: input_boolean.vacation_mode
+      state: 'on'
+  action:
+    - delay: '00:{{ range(0,10) | random | int }}:00'
+    - service: switch.turn_on
+      entity_id: switch.switch_7
+    - delay: '04:{{ range(5,15) | random | int }}:00'
+    - service: switch.turn_off
+      entity_id: switch.switch_7
+        
+- alias: DenMorningVacation
+  intial_state: 'on'
+  trigger:
+    platform: time
+    at: '07:30:00'
+  condition:
+    - condition: state
+      entity_id: input_boolean.vacation_mode
+      state: 'on'
+  action:
+    - delay: '00:{{ range(0,5) | random | int }}:00'
+    - service: switch.turn_on
+      entity_id: switch.switch_7
+    - delay: '01:{{ range(10,15) | random | int }}:00'
+    - service: switch.turn_off
+      entity_id: switch.switch_7
 #Sun-timed events
 - alias: Vacation_Sunset
   initial_state: 'on'
