@@ -9,24 +9,6 @@
 # switch_9 - short undercounter
 # switch_10 - long undercounter
 
-#- alias: Vacation_Powder_Room
-#  initial_state: 'on'
-#  trigger: 
-#    platform: state
-#    entity_id: input_boolean.vacation_mode
-#    from: 'off'
-#    to: 'on'
-#  action:
-#    # Time format HH:MM:SS
-#    #- delay: '0{{ range(0,1) | random | int }}:{{ range(20,59) | random | int }}:00'
-#    - delay: '00:{{ range(0,1) | random | int }}:00'
-#    - service: switch.turn_on
-#      entity_id: switch.switch_8
-#    #- delay: '0{{ range(0,2) | random | int }}:{{ range(10,59) | random | int }}:00'
-#    - delay: '00:{{ range(1,5) | random | int }}:00'
-#    - service: switch.turn_off
-#      entity_id: switch.switch_8 
-
 - alias: BackYardVacation
   initial_state: 'on'
   trigger:
@@ -39,10 +21,10 @@
   action:
     - delay: '00:{{ range(0,10) | random | int }}:00'
     - service: switch.turn_on
-      entity_id: switch.switch_2
+      entity_id: group.backyard
     - delay: '00:{{ range(15,30) | random | int }}:00'
     - service: switch.turn_off
-      entity_id: switch.switch_2
+      entity_id: group.backyard
     
 - alias: KitchenMorningVacation
   initial_state: 'on'
@@ -50,9 +32,18 @@
     platform: time
     at: '06:00:00'
   condition:
-    - condition: state
-      entity_id: input_boolean.vacation_mode
-      state: 'on'
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: input_boolean.vacation_mode
+        state: 'on'
+      - condition: time
+        weekday:
+          - mon
+          - tue
+          - wed
+          - thu
+          - fri
   action:
     - delay: '00:{{ range(0,5) | random | int }}:00'
     - service: switch.turn_on
@@ -67,15 +58,70 @@
     platform: time
     at: '18:30:00'
   condition:
-    - condition: state
-      entity_id: input_boolean.vacation_mode
-      state: 'on'
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: input_boolean.vacation_mode
+        state: 'on'
+      - condition: time
+        weekday:
+          - mon
+          - tue
+          - wed
+          - thu
+          - fri
   action:
     - delay: '00:{{ range(0,5) | random | int }}:00'
     - service: switch.turn_on
       entity_id: group.kitchen
-    - delay: '01:{{ range(30,45) | random | int }}:00'
+    - delay: '03:{{ range(30,45) | random | int }}:00'
     - service: switch.turn_off
+      entity_id: group.kitchen
+
+- alias: KitchenWeekendMorning
+  initial_state: 'on'
+  trigger:
+    platform: time
+    at: '06:30:00'
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: input_boolean.vacation_mode
+        state: 'on'
+      - condition: time
+        weekday:
+          - sat
+          - sun
+  action:
+    - delay: '00:{{ range(0,20) | random | int }}:00'
+    - service: switch.turn_on
+      entity_id: group.kitchen
+    - delay: '07:{{ range(0,15) | random | int }}:00'
+    - service: switch.turn_off
+      entity_id: group.kitchen
+
+- alias: KitchenWeekendEvening
+  initial_state: 'on'
+  trigger:
+    platform: time
+    at: '18:00:00'
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: input_boolean.vacation_mode
+        state: 'on'
+      - condition: time
+        weekday:
+          - sat
+          - sun
+  action:
+    - delay: '00:{{ range(0,15) | random | int }}:00'
+    - service: switch.switch_on
+      entity_id: group.kitchen
+    - delay: '04:{{ range(0,59) | random | int }}:00'
+    - service: switch.switch_off
       entity_id: group.kitchen
         
 - alias: DenEveningVacation
@@ -84,9 +130,18 @@
     platform: time
     at: '17:30:00'
   condition:
-    - condition: state
-      entity_id: input_boolean.vacation_mode
-      state: 'on'
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: input_boolean.vacation_mode
+        state: 'on'
+      - condition: time
+        weekday:
+          - mon
+          - tue
+          - wed
+          - thu
+          - fri
   action:
     - delay: '00:{{ range(0,10) | random | int }}:00'
     - service: switch.turn_on
@@ -96,14 +151,23 @@
       entity_id: switch.switch_7
         
 - alias: DenMorningVacation
-  intial_state: 'on'
+  initial_state: 'on'
   trigger:
     platform: time
     at: '07:30:00'
   condition:
-    - condition: state
-      entity_id: input_boolean.vacation_mode
-      state: 'on'
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: input_boolean.vacation_mode
+        state: 'on'
+      - condition: time
+        weekday:
+          - mon
+          - tue
+          - wed
+          - thu
+          - fri
   action:
     - delay: '00:{{ range(0,5) | random | int }}:00'
     - service: switch.turn_on
@@ -111,6 +175,128 @@
     - delay: '01:{{ range(10,15) | random | int }}:00'
     - service: switch.turn_off
       entity_id: switch.switch_7
+
+- alias: DenWeekend
+  initial_state: 'on'
+  trigger:
+    platform: time
+    at: '12:30:00'
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: input_boolean.vacation_mode
+        state: 'on'
+      - condition: time
+        weekday:
+          - sat
+          - sun
+  action:
+    - delay: '00:{{ range(3,38) | random | int }}:00'
+    - service: switch.turn_on
+      entity_id: switch.switch_7
+    - delay: '09:{{ range(10,59) | random | int }}:00'
+    - service: switch.turn_off
+      entity_id: switch.switch_7
+
+- alias: LaundryMorningVacation
+  initial_state: 'on'
+  trigger:
+    platform: time
+    at: '06:30:00'
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: input_boolean.vacation_mode
+        state: 'on'
+      - condition: time
+        weekday:
+          - mon
+          - tue
+          - wed
+          - thu
+          - fri
+          - sat
+  action:
+    - delay: '00:{{ range(0,3) | random | int }}:00'
+    - service: switch.turn_on
+      entity_id: switch.switch_4
+    - delay: '01{{ range(0,15) | random | int }}:00'
+    - service: switch.turn_off
+      entity_id: switch.switch_4
+
+- alias: LaundryEveningVacation
+  initial_state: 'on'
+  trigger:
+    platform: time
+    at: '17:30:00'
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: input_boolean.vacation_mode
+        state: 'on'
+      - condition: time
+        weekday:
+          - mon
+          - tue
+          - wed
+          - thu
+          - fri
+          - sat
+  action:
+    - delay: '00:{{ range(0,10) | random | int }}:00'
+    - service: switch.switch_on
+      entity_id: switch.switch_4
+    - delay: '01:{{range(0,20) | random | int }}:00'
+    - service: switch.switch_off
+      entity_id: switch.switch_4
+
+- alias: LaundrySunday
+  initial_state: 'on'
+  trigger:
+    platform: time
+    at: '12:00:00'
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: input_boolean.vacation_mode
+        state: 'on'
+      - condition: time
+        weekday:
+          - sun
+  action:
+    - delay: '00:{{ range(0,10) | random | int }}:00'
+    - service: switch.switch_on
+      entity_id: switch.switch_4
+    - delay: '07:{{ range(10,49) | random | int }}:00'
+    - service: switch.switch_off
+      entity_id: switch.switch_4
+
+- alias: DrivewayMonday
+  initial_state: 'on'
+  trigger:
+    platform: time
+    at: '21:30:00'
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: input_boolean.vacation_mode
+        state: 'on'
+      - condition: time
+        weekday:
+          - mon
+  action:
+    - delay: '00:{{ range(0,5) | random | int }}:00'
+    - service: switch.switch_on
+      entity_id: switch.switch_6
+    - delay: '00:{{ range(20,30) | random | int }}:00'
+    - service: switch.switch_off
+      entity_id: switch.switch_6
+
 #Sun-timed events
 - alias: Vacation_Sunset
   initial_state: 'on'
@@ -132,7 +318,7 @@
     event: 'sunrise'
   condition:
     - condition: state
-      entity_id: input_boolean_vacation_mode
+      entity_id: input_boolean.vacation_mode
       state: 'on'
   action:
     - service: switch.turn_off
