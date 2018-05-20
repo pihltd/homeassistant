@@ -4,3 +4,8 @@ vacation_mode:
   name: Vacation
   icon: mdi:airport
   initial: off
+
+sun_mode:
+  name: Sun Control
+  icon: mdi:brightness-4
+  initial: off

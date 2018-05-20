@@ -22,6 +22,7 @@ default_view:
     - group.kitchen_group
     - group.all_outdoor_group
     - group.vacation
+    - group.suncontrol
 
 ############################################
 # Groups of groups to make single switches #
@@ -69,12 +70,14 @@ all_lights:
     - switch.switch_9
     - switch.switch_10
 backyard:
+  icon: mdi:track-light
   entities:
     - switch.switch_2
     - switch.switch_4
     - switch.switch_5
 welcome_garage:
   name: Welcome Garage
+  icon: mdi:home-modern
   view: no
   entities:
     - switch.switch_3
@@ -83,6 +86,7 @@ welcome_garage:
 welcome_front:
   name: Welcome Front Door
   view: no
+  icon: mdi:home-modern
   entities:
     - switch.switch
     - switch.switch_8
@@ -91,12 +95,14 @@ welcome_front:
     - switch.switch_9
 frontyard:
   name: Frontyard Lights
+  icon: mdi:track-light
   view: no
   entities:
     - switch.switch
     - switch.switch_6
 kitchen:
   name: Kitchen
+  icon: mdi:silverware-variant
   view: no
   entities:
     - switch.switch_9
@@ -104,6 +110,7 @@ kitchen:
 all_outdoor:
   name: All Outdoor Lights
   view: no
+  icon: mdi:ninja
   entities:
     - switch.switch
     - switch.switch_2
@@ -114,3 +121,7 @@ vacation:
   name: Vacation
   entities:
     - input_boolean.vacation_mode
+suncontrol:
+  name: Sun Mode
+  entities:
+    - input_boolean.sun_mode

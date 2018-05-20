@@ -221,10 +221,10 @@
   action:
     - delay: '00:{{ range(0,3) | random | int }}:00'
     - service: switch.turn_on
-      entity_id: switch.switch_4
+      entity_id: switch.switch_3
     - delay: '01{{ range(0,15) | random | int }}:00'
     - service: switch.turn_off
-      entity_id: switch.switch_4
+      entity_id: switch.switch_3
 
 - alias: LaundryEveningVacation
   initial_state: 'on'
@@ -248,10 +248,10 @@
   action:
     - delay: '00:{{ range(0,10) | random | int }}:00'
     - service: switch.switch_on
-      entity_id: switch.switch_4
+      entity_id: switch.switch_3
     - delay: '01:{{range(0,20) | random | int }}:00'
     - service: switch.switch_off
-      entity_id: switch.switch_4
+      entity_id: switch.switch_3
 
 - alias: LaundrySunday
   initial_state: 'on'
@@ -270,12 +270,12 @@
   action:
     - delay: '00:{{ range(0,10) | random | int }}:00'
     - service: switch.switch_on
-      entity_id: switch.switch_4
+      entity_id: switch.switch_3
     - delay: '07:{{ range(10,49) | random | int }}:00'
     - service: switch.switch_off
-      entity_id: switch.switch_4
+      entity_id: switch.switch_3
 
-- alias: DrivewayMonday
+- alias: DrivewaySunday
   initial_state: 'on'
   trigger:
     platform: time
@@ -288,7 +288,7 @@
         state: 'on'
       - condition: time
         weekday:
-          - mon
+          - sun
   action:
     - delay: '00:{{ range(0,5) | random | int }}:00'
     - service: switch.switch_on
@@ -304,9 +304,14 @@
     platform: sun
     event: 'sunset'
   condition:
-    - condition: state
-      entity_id: input_boolean.vacation_mode
-      state: 'on'
+    condition: or
+    conditions:
+      - condition: state
+        entity_id: input_boolean.vacation_mode
+        state: 'on'
+      - condition: state
+        entity_id: input_boolean.sun_mode
+        state: 'on'
   action:
     - service: switch.turn_on
       entity_id: switch.switch
@@ -317,9 +322,14 @@
     platform: sun
     event: 'sunrise'
   condition:
-    - condition: state
-      entity_id: input_boolean.vacation_mode
-      state: 'on'
+    condition: or
+    conditions:
+      - condition: state
+        entity_id: input_boolean.vacation_mode
+        state: 'on'
+      - condition: state
+        entity_id: input_boolean.sun_mode
+        state: 'on'
   action:
     - service: switch.turn_off
       entity_id: switch.switch
