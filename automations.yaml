@@ -222,7 +222,7 @@
     - delay: '00:{{ range(0,3) | random | int }}:00'
     - service: switch.turn_on
       entity_id: switch.switch_3
-    - delay: '01{{ range(0,15) | random | int }}:00'
+    - delay: '01:{{ range(0,15) | random | int }}:00'
     - service: switch.turn_off
       entity_id: switch.switch_3
 
