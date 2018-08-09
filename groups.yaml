@@ -20,6 +20,7 @@ default_view:
     - group.welcome_front_group
     - group.frontyard_group
     - group.kitchen_group
+    - group.dogwalk_group
     - group.all_outdoor_group
     - group.vacation
     - group.suncontrol
@@ -48,6 +49,10 @@ kitchen_group:
   name: Kitchen
   entities:
     - group.kitchen
+dogwalk_group:
+  name: Dogwalk Lights
+  entities:
+    - group.dogwalk
 all_outdoor_group:
   name: All Outdoor Lights
   entities:
@@ -107,6 +112,13 @@ kitchen:
   entities:
     - switch.switch_9
     - switch.switch_10
+dogwalk:
+  name: Dogwalk Lights
+  view: no
+  icon: mdi:walk
+  entities:
+    - switch.switch_4
+    - switch.switch_5
 all_outdoor:
   name: All Outdoor Lights
   view: no
