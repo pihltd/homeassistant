@@ -1,139 +1,83 @@
 #  Switches
 # switch - Front door
-# switch_2 - Sliding door
-# switch_3 - Laundry room
-# switch_4 - Laundry door
-# switch_5 - Garage back door
-# switch_6 - Driveway
-# switch_7 - Den
-# switch_8 - Powder room
-# switch_9 - Short kitchen undercounter
-# switch_10 - Long kitchen undercounter
+# sliding_door - Sliding door
+# laundry_room - Laundry room
+# laundry_door - Laundry door
+# garage_backyard_door - Garage backyard door
+# driveway - Driveway
+# den - Den
+# powder_room - Powder room
+# bread_counter - bread_counter
+# cooking_counter - cooking_counter
 
-default_view:
-  view: yes
-  entities:
-    - sun.sun
-    - sensor.yr
-    - group.backyard_group
-    - group.welcome_garage_group
-    - group.welcome_front_group
-    - group.frontyard_group
-    - group.kitchen_group
-    - group.dogwalk_group
-    - group.all_outdoor_group
-    - group.vacation
-    - group.suncontrol
-
-############################################
-# Groups of groups to make single switches #
-############################################
-
-backyard_group:
-  name: Backyard Lights
-  entities:
-    - group.backyard
-welcome_garage_group:
-  name: Welcome Garage
-  entities:
-    - group.welcome_garage
-welcome_front_group:
-  name: Welcome Front Door
-  entities:
-    - group.welcome_front
-frontyard_group:
-  name: Frontyard Lights
-  entities:
-    - group.frontyard
-kitchen_group:
-  name: Kitchen
-  entities:
-    - group.kitchen
-dogwalk_group:
-  name: Dogwalk Lights
-  entities:
-    - group.dogwalk
-all_outdoor_group:
-  name: All Outdoor Lights
-  entities:
-    - group.all_outdoor
-#####################################
-#    Groups of lights               #
-#####################################
 all_lights:
   name: All Lights
-  view: yes
+  all: true
   entities:
-    - switch.switch
-    - switch.switch_2
-    - switch.switch_3
-    - switch.switch_4
-    - switch.switch_5
-    - switch.switch_6
-    - switch.switch_7
-    - switch.switch_8
-    - switch.switch_9
-    - switch.switch_10
+    - switch.front_door
+    - switch.sliding_door
+    - switch.laundry_room
+    - switch.laundry_door
+    - switch.garage_backyard_door
+    - switch.driveway
+    - switch.den
+    - switch.powder_room
+    - switch.bread_counter
+    - switch.cooking_counter
 backyard:
+  name: Backyard Lights
   icon: mdi:track-light
+  all: true
   entities:
-    - switch.switch_2
-    - switch.switch_4
-    - switch.switch_5
+    - switch.sliding_door
+    - switch.laundry_door
+    - switch.garage_backyard_door
 welcome_garage:
   name: Welcome Garage
   icon: mdi:home-modern
-  view: no
+  all: true
   entities:
-    - switch.switch_3
-    - switch.switch_6
-    - switch.switch_9
+    - switch.laundry_room
+    - switch.driveway
+    - switch.bread_counter
 welcome_front:
   name: Welcome Front Door
-  view: no
   icon: mdi:home-modern
+  all: true
   entities:
-    - switch.switch
-    - switch.switch_8
-    - switch.switch_7
-    - switch.switch_6
-    - switch.switch_9
+    - switch.front_door
+    - switch.powder_room
+    - switch.den
+    - switch.driveway
+    - switch.bread_counter
 frontyard:
   name: Frontyard Lights
   icon: mdi:track-light
-  view: no
+  all: true
   entities:
-    - switch.switch
-    - switch.switch_6
+    - switch.front_door
+    - switch.driveway
 kitchen:
   name: Kitchen
   icon: mdi:silverware-variant
-  view: no
+  all: true
   entities:
-    - switch.switch_9
-    - switch.switch_10
+    - switch.bread_counter
+    - switch.cooking_counter
 dogwalk:
   name: Dogwalk Lights
-  view: no
   icon: mdi:walk
+  all: true
   entities:
-    - switch.switch_4
-    - switch.switch_5
+    - switch.laundry_door
+    - switch.garage_backyard_door
 all_outdoor:
   name: All Outdoor Lights
-  view: no
   icon: mdi:ninja
+  all: true
   entities:
-    - switch.switch
-    - switch.switch_2
-    - switch.switch_4
-    - switch.switch_5
-    - switch.switch_6
-vacation:
-  name: Vacation
-  entities:
-    - input_boolean.vacation_mode
-suncontrol:
-  name: Sun Mode
-  entities:
-    - input_boolean.sun_mode
+    - switch.front_door
+    - switch.sliding_door
+    - switch.laundry_door
+    - switch.garage_backyard_door
+    - switch.driveway
