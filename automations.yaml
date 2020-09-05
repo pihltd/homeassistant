@@ -1,14 +1,39 @@
-# switch - Front doo
-# switch_2 - Sliding door
-# switch_3 - laundry room
-# switch_4 - laundry door
-# switch_5 - garage back door
-# switch_6 - driveway
-# switch_7 - Den
-# switch_8 - powder room
-# switch_9 - short undercounter
-# switch_10 - long undercounter
+#  Switches
+# front_door - Front door
+# sliding_door - Sliding door
+# laundry_room - Laundry room
+# laundry_door - Laundry door
+# garage_backyard_door - Garage backyard door
+# driveway - Driveway
+# den - Den
+# powder_room - Powder room
+# bread_counter - bread_counter
+# cooking_counter - cooking_counter
 
+# Front door light at sunrise/sunset
+- alias: FrontDoorSunset
+  trigger:
+    platform: sun
+    event: 'sunset'
+  condition:
+    condition: state
+    entity_id: input_boolean.sun_mode
+    state: 'on'
+  action:
+    service: switch.turn_on
+    entity_id: switch.front_door
+- alias: FrontDoorSunrise
+  trigger:
+    platform: sun
+    event: 'sunrise'
+  condition:
+    condition: state
+    entity_id: input_boolean.sun_mode
+    state: 'on'
+  action:
+    service: switch.turn_off
+    entity_id: switch.front_door
+#Turn on Backyard lights at 9PM for 15-30 minutes
 - alias: BackYardVacation
   initial_state: 'on'
   trigger:
@@ -25,7 +50,26 @@
     - delay: '00:{{ range(15,30) | random | int }}:00'
     - service: switch.turn_off
       entity_id: group.backyard
-    
+
+#Turn on Backyard lights at 6AM for 5-15 minutes
+- alias: BackYardVacationMorning
+  initial_state: 'on'
+  trigger:
+    platform: time
+    at: '06:00:00'
+  condition:
+    - condition: state
+      entity_id: input_boolean.vacation_mode
+      state: 'on'
+  action:
+    - delay: '00:{{ range(0,10) | random | int }}:00'
+    - service: switch.turn_on
+      entity_id: group.backyard
+    - delay: '00:{{ range(5,15) | random | int }}:00'
+    - service: switch.turn_off
+      entity_id: group.backyard
+
+#Turn on Kitchen lights Mon-Fri at 6AM for 90-105 min
 - alias: KitchenMorningVacation
   initial_state: 'on'
   trigger:
@@ -51,7 +95,8 @@
     - delay: '01:{{ range(30,45) | random | int }}:00'
     - service: switch.turn_off
       entity_id: group.kitchen
-      
+
+#Turn on Kitchen lights Mon-Fri at 6:30 for 3-4 hours
 - alias: KitchenEveningVacation
   initial_state: 'on'
   trigger:
@@ -78,6 +123,7 @@
     - service: switch.turn_off
       entity_id: group.kitchen
 
+#Turn on Kitchen lights Sat-Sun at 6:30AM for 7 hours
 - alias: KitchenWeekendMorning
   initial_state: 'on'
   trigger:
@@ -101,6 +147,7 @@
     - service: switch.turn_off
       entity_id: group.kitchen
 
+#Turn on Kitchen lights Sat-Sun at 6PM for 4-5 hours
 - alias: KitchenWeekendEvening
   initial_state: 'on'
   trigger:
@@ -123,7 +170,8 @@
     - delay: '04:{{ range(0,59) | random | int }}:00'
     - service: switch.switch_off
       entity_id: group.kitchen
-        
+
+#Turn on Den light Mon-Fri at 5:30 PM for 4 hours
 - alias: DenEveningVacation
   initial_state: 'on'
   trigger:
@@ -145,11 +193,12 @@
   action:
     - delay: '00:{{ range(0,10) | random | int }}:00'
     - service: switch.turn_on
-      entity_id: switch.switch_7
+      entity_id: switch.den
     - delay: '04:{{ range(5,15) | random | int }}:00'
     - service: switch.turn_off
-      entity_id: switch.switch_7
-        
+      entity_id: switch.den
+
+#Turn on Den lights Mon-Fri at 7:30 AM for 14 hours
 - alias: DenMorningVacation
   initial_state: 'on'
   trigger:
@@ -171,11 +220,12 @@
   action:
     - delay: '00:{{ range(0,5) | random | int }}:00'
     - service: switch.turn_on
-      entity_id: switch.switch_7
-    - delay: '01:{{ range(10,15) | random | int }}:00'
+      entity_id: switch.den
+    - delay: '14:{{ range(10,15) | random | int }}:00'
     - service: switch.turn_off
-      entity_id: switch.switch_7
+      entity_id: switch.den
 
+#Turn on Den light at 12:30 PM for 9-10 hours
 - alias: DenWeekend
   initial_state: 'on'
   trigger:
@@ -194,11 +244,12 @@
   action:
     - delay: '00:{{ range(3,38) | random | int }}:00'
     - service: switch.turn_on
-      entity_id: switch.switch_7
+      entity_id: switch.den
     - delay: '09:{{ range(10,59) | random | int }}:00'
     - service: switch.turn_off
-      entity_id: switch.switch_7
+      entity_id: switch.den
 
+#Turn on LaundryRoom light Mon-Sat at 6:30AM for an hour
 - alias: LaundryMorningVacation
   initial_state: 'on'
   trigger:
@@ -221,11 +272,12 @@
   action:
     - delay: '00:{{ range(0,3) | random | int }}:00'
     - service: switch.turn_on
-      entity_id: switch.switch_3
+      entity_id: switch.laundry_room
     - delay: '01:{{ range(0,15) | random | int }}:00'
     - service: switch.turn_off
-      entity_id: switch.switch_3
+      entity_id: switch.laundry_room
 
+#Turn on LaundryRoom light Mon-Sat at 5:30OM for 1 hour
 - alias: LaundryEveningVacation
   initial_state: 'on'
   trigger:
@@ -248,11 +300,12 @@
   action:
     - delay: '00:{{ range(0,10) | random | int }}:00'
     - service: switch.switch_on
-      entity_id: switch.switch_3
+      entity_id: switch.laundry_room
     - delay: '01:{{range(0,20) | random | int }}:00'
     - service: switch.switch_off
-      entity_id: switch.switch_3
+      entity_id: switch.laundry_room
 
+#Turn on LaundryRoom light Sun at noon for 7 hours
 - alias: LaundrySunday
   initial_state: 'on'
   trigger:
@@ -270,11 +323,12 @@
   action:
     - delay: '00:{{ range(0,10) | random | int }}:00'
     - service: switch.switch_on
-      entity_id: switch.switch_3
+      entity_id: switch.laundry_room
     - delay: '07:{{ range(10,49) | random | int }}:00'
     - service: switch.switch_off
-      entity_id: switch.switch_3
+      entity_id: switch.laundry_room
 
+#Turn on Driveway light Sun at 9:30PM for 20-30 min
 - alias: DrivewaySunday
   initial_state: 'on'
   trigger:
@@ -292,45 +346,7 @@
   action:
     - delay: '00:{{ range(0,5) | random | int }}:00'
     - service: switch.switch_on
-      entity_id: switch.switch_6
+      entity_id: switch.driveway
     - delay: '00:{{ range(20,30) | random | int }}:00'
     - service: switch.switch_off
-      entity_id: switch.switch_6
-
-#Sun-timed events
-- alias: Vacation_Sunset
-  initial_state: 'on'
-  trigger:
-    platform: sun
-    event: 'sunset'
-  condition:
-    condition: or
-    conditions:
-      - condition: state
-        entity_id: input_boolean.vacation_mode
-        state: 'on'
-      - condition: state
-        entity_id: input_boolean.sun_mode
-        state: 'on'
-  action:
-    - service: switch.turn_on
-      entity_id: switch.switch
-
-- alias: Vacation_Sunrise
-  initial_state: 'on'
-  trigger:
-    platform: sun
-    event: 'sunrise'
-  condition:
-    condition: or
-    conditions:
-      - condition: state
-        entity_id: input_boolean.vacation_mode
-        state: 'on'
-      - condition: state
-        entity_id: input_boolean.sun_mode
-        state: 'on'
-  action:
-    - service: switch.turn_off
-      entity_id: switch.switch
-
+      entity_id: switch.driveway
