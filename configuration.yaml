@@ -12,27 +12,31 @@ default_config:
 #   base_url: example.duckdns.org:8123
 
 #DucDNS setup
-duckdns:
-  domain: pihlsecor
-  access_token: c9398127-d906-4288-ab26-fe5d90afec6e
+#duckdns:
+#  domain: pihlsecor
+#  access_token: c9398127-d906-4288-ab26-fe5d90afec6e
 
 #Http setup
 http:
-  ssl_certificate: /etc/letsencrypt/live/pihlsecor.duckdns.org/fullchain.pem
-  ssl_key: /etc/letsencrypt/live/pihlsecor.duckdns.org/privkey.pem
-  base_url: pihlsecor.duckdns.org:8123
+  ssl_certificate: fullchain.cer
+  ssl_key: pihlsecor.duckdns.org.key
+  #base_url: pihlsecor.duckdns.org:8123
   ip_ban_enabled: true
   login_attempts_threshold: 6
 
 #Enable Zwave
-zwave:
-  usb_path: /dev/ttyACM0
+#zwave:
+#  usb_path: /dev/ttyACM0
 
 # Text to speech
-tts:
-  - platform: google_translate
+#tts:
+#  - platform: google_translate
 
 group: !include groups.yaml
+input_boolean: !include input_boolean.yaml
 automation: !include automations.yaml
-script: !include scripts.yaml
+#script: !include scripts.yaml
 #scene: !include scenes.yaml
+#http:
+#  ssl_certificate: pihlsecor.duckdns.org.csr
+#  ssl_key: pihlsecor.duckdns.org.key

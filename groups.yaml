@@ -1,5 +1,5 @@
 #  Switches
-# switch - Front door
+# front_door - Front door
 # sliding_door - Sliding door
 # laundry_room - Laundry room
 # laundry_door - Laundry door
@@ -26,24 +26,24 @@ all_lights:
     - switch.cooking_counter
 backyard:
   name: Backyard Lights
-  icon: mdi:track-light
   all: true
+  icon: mdi:outdoor-lamp
   entities:
     - switch.sliding_door
     - switch.laundry_door
     - switch.garage_backyard_door
 welcome_garage:
   name: Welcome Garage
-  icon: mdi:home-modern
   all: true
+  icon: mdi:home-modern
   entities:
     - switch.laundry_room
     - switch.driveway
     - switch.bread_counter
 welcome_front:
   name: Welcome Front Door
-  icon: mdi:home-modern
   all: true
+  icon: mdi:home-modern
   entities:
     - switch.front_door
     - switch.powder_room
@@ -52,29 +52,29 @@ welcome_front:
     - switch.bread_counter
 frontyard:
   name: Frontyard Lights
-  icon: mdi:track-light
   all: true
+  icon: mdi:track-light
   entities:
     - switch.front_door
     - switch.driveway
 kitchen:
   name: Kitchen
-  icon: mdi:silverware-variant
   all: true
+  icon: mdi:silverware-variant
   entities:
     - switch.bread_counter
     - switch.cooking_counter
 dogwalk:
   name: Dogwalk Lights
-  icon: mdi:walk
   all: true
+  icon: mdi:walk
   entities:
     - switch.laundry_door
     - switch.garage_backyard_door
 all_outdoor:
   name: All Outdoor Lights
-  icon: mdi:ninja
   all: true
+  icon: mdi:ninja
   entities:
     - switch.front_door
     - switch.sliding_door
