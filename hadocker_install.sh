@@ -1,19 +1,16 @@
 #!/bin/bash
+#https://peyanski.com/home-assistant-supervised-and-container-how-to/
 #
-# Command to install a new home assistant docker image and connect to the right dirs
-#
-# https://jackstromberg.com/2020/03/how-to-update-home-assistant-docker-container/
-#
+#Install and initialize HA docker container.  Not for updating
+
 DOCKERNAME="home-assistant"
 TIMEZONE="America/New_York"
-CONFIGDIR="/home/ubuntu/homeassistantdocker"
 HADOCKER="homeassistant/raspberrypi4-homeassistant:stable"
 
-#docker stop ${DOCKERNAME}
+#Evans Street
+#CONFIGDIR="/home/ubuntu/homeassistantdocker"
 
-#docker rm ${DOCKERNAME:
+#Cabin
+CONFIGDIR="/home/ubuntu/hadocker"
 
-#docker pull ${HADOCKER}
-
-#echo docker run --init -d --restart=always --name="${DOCKERNAME}" -e "${TIMEZONE}" -v ${CONFIGDIR}:/config --net=host homeassistant/raspberrypi4-homeassistant:stable
-docker run --init -d --restart=always --name="${DOCKERNAME}" -e "${TIMEZONE}" -v ${CONFIGDIR}:/config --net=host homeassistant/raspberrypi4-homeassistant:stable
+echo docker run --init -d --restart=unless-stopped --name="${DOCKERNAME}" -e "TZ=${TIMEZONE}" -v ${CONFIGDIR}:/config -p 8123:8123 ${HADOCKER}
