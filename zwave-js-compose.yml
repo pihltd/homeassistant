@@ -1,0 +1,18 @@
+services:
+  zwavejs2mqtt:
+    container_name: zwavejs2mqtt
+    image: "zwavejs/zwavejs2mqtt:latest"
+    restart: always
+    tty: true
+    stop_signal: SIGINT
+    environment:
+      - SESSION_SECRET=<SECRET HERE>
+      - ZWAVEJS_EXTERNAL_CONFIG=/user/src/app/store/.config-db
+      - TZ=America/New_York
+    devices:
+      - '/dev/serial/by-id/usb-Zooz_800_Z-Wave_Stick_533D004242-if00:/dev/zwave'
+    ports:
+      - "8091:8091" # Port for web interface
+      - "3000:3000" # port for ZWave JS websocket server
+    volumes:
+      - /home/pihl/zwave_js_docker/docker_configs:/user/src/app/store
